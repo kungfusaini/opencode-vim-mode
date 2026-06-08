@@ -1,0 +1,43 @@
+{
+  "name": "@kungfusaini/opencode-vim-mode",
+  "version": "0.1.0",
+  "description": "OpenCode TUI plugin that adds Vim-style modal editing, message selection, and prompt visual mode.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Sumeet Saini",
+  "homepage": "https://github.com/kungfusaini/opencode-vim-mode#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kungfusaini/opencode-vim-mode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kungfusaini/opencode-vim-mode/issues"
+  },
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "vim",
+    "modal-editing",
+    "tui",
+    "opencode-tui"
+  ],
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "main": "./src/index.js",
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "check": "node --check src/index.js && node --check src/indicator.js && node --check src/vim-mode.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@opentui/solid": "^0.3.2",
+    "solid-js": "^1.9.12"
+  }
+}
