@@ -1,6 +1,6 @@
 {
   "name": "@kungfusaini/opencode-vim-mode",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "OpenCode TUI plugin that adds Vim-style modal editing, message selection, and prompt visual mode.",
   "type": "module",
   "license": "MIT",

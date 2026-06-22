@@ -64,8 +64,24 @@ Then restart OpenCode.
 ## Notes
 
 - `ctrl+d` in normal mode is repurposed for Vim-style half-page down while the prompt is focused, so use `ctrl+c` or your other quit bindings to exit.
+- unhandled modified-key chords such as `ctrl+x, m` are passed through in normal mode so OpenCode can complete them.
 - `Enter` for message actions only works when a message is actively selected with `J`, `K`, `gg`, or `G`.
 - This plugin intentionally leans on current OpenCode/OpenTUI behavior and should be considered experimental.
+
+## Development
+
+For local development, you can point OpenCode to your local build in `tui.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/tui.json",
+  "plugin": [
+    "file:///Users/sumeet/matrix/tools/opencode/opencode-vim-mode/src/index.js"
+  ]
+}
+```
+
+Restart OpenCode after editing this config so it picks up file-based plugin changes.
 
 ## Compatibility
 

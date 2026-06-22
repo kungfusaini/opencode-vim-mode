@@ -415,8 +415,13 @@ export default {
           ],
           onSelect: async (option) => {
             if (option.value === "session.revert") {
+              const prompt = promptInfoFromMessage(message.id)
               await api.client.session.revert({ sessionID, messageID: message.id })
               api.ui.dialog.clear()
+              clearSelectedMessage()
+              setMode(INSERT)
+              await api.client.tui.clearPrompt()
+              await api.client.tui.appendPrompt({ text: prompt.input })
               return
             }
             if (option.value === "message.copy") {
@@ -479,7 +484,18 @@ export default {
       return false
     }
 
-    const moveSelectedMessage = (delta) => runMessageCommand(delta > 0 ? "session.message.next" : "session.message.previous")
+    const moveSelectedMessage = (delta) => {
+      const sessionID = currentSessionID(api)
+      if (!sessionID) return false
+
+      const visible = visibleMessageIDs(api, sessionID)
+      if (delta < 0 && visible.length && (!selectedMessageID || !visible.includes(selectedMessageID))) {
+        setSelectedMessage(visible[visible.length - 1])
+        return true
+      }
+
+      return runMessageCommand(delta > 0 ? "session.message.next" : "session.message.previous")
+    }
 
     const jumpToEdgeMessage = (edge) => {
       const sessionID = currentSessionID(api)
@@ -565,6 +581,12 @@ export default {
         clearPendingG()
         clearPendingOperator()
         stopEvent(event)
+        return
+      }
+      if (api.keymap.getPendingSequence()?.length || api.keymap.hasPendingSequence?.()) {
+        clearPendingG()
+        clearPendingOperator()
+        clearSelectedMessage()
         return
       }
       if (isModified(event)) {
